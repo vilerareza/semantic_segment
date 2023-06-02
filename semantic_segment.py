@@ -5,7 +5,7 @@ import os
 # import torch.distributed as dist
 # import pycocotools.mask as maskUtils
 # import torch.nn.functional as F
-# from transformers import OneFormerProcessor, OneFormerForUniversalSegmentation
+from transformers import OneFormerProcessor, OneFormerForUniversalSegmentation
 from sam import SegmentAnything
 # from coco_id2label import CONFIG as CONFIG_COCO_ID2LABEL
 
@@ -14,8 +14,8 @@ class SemanticSegmenter:
    
     def __init__(self, checkpoint, device = 'cuda') -> None:
         
-        #self.semantic_branch_processor = OneFormerProcessor.from_pretrained("shi-labs/oneformer_coco_swin_large")
-        #self.semantic_branch_model = OneFormerForUniversalSegmentation.from_pretrained("shi-labs/oneformer_coco_swin_large").to(0)
+        self.semantic_branch_processor = OneFormerProcessor.from_pretrained("shi-labs/oneformer_coco_swin_large")
+        self.semantic_branch_model = OneFormerForUniversalSegmentation.from_pretrained("shi-labs/oneformer_coco_swin_large").to(0)
         self.sam = SegmentAnything(checkpoint, device)
         #self.mask_branch_model = self.sam.create_predictor(output_mode = 'coco_rle')
         #self.id2label = CONFIG_COCO_ID2LABEL
