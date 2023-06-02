@@ -6,11 +6,11 @@ import torch.distributed as dist
 import pycocotools.mask as maskUtils
 import torch.nn.functional as F
 from transformers import OneFormerProcessor, OneFormerForUniversalSegmentation
-from segment_anything import SegmentAnything
+from segmenter import SegmentAnything
 from coco_id2label import CONFIG as CONFIG_COCO_ID2LABEL
 
 
-class SegmentAnything:
+class SemanticSegmenter:
    
     def __init__(self, checkpoint, device = 'cuda') -> None:
         
