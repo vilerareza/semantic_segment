@@ -1,13 +1,10 @@
-import os
-# import numpy as np
-# from PIL import Image
-# import torch
-# import torch.distributed as dist
-# import pycocotools.mask as maskUtils
-# import torch.nn.functional as F
+import numpy as np
+from PIL import Image
+import torch
+import pycocotools.mask as maskUtils
 from transformers import OneFormerProcessor, OneFormerForUniversalSegmentation
 from sam import SegmentAnything
-# from coco_id2label import CONFIG as CONFIG_COCO_ID2LABEL
+from coco_id2label import CONFIG as CONFIG_COCO_ID2LABEL
 
 
 class SemanticSegmenter:
@@ -17,8 +14,8 @@ class SemanticSegmenter:
         self.semantic_branch_processor = OneFormerProcessor.from_pretrained("shi-labs/oneformer_coco_swin_large")
         self.semantic_branch_model = OneFormerForUniversalSegmentation.from_pretrained("shi-labs/oneformer_coco_swin_large").to(0)
         self.sam = SegmentAnything(checkpoint, device)
-        #self.mask_branch_model = self.sam.create_predictor(output_mode = 'coco_rle')
-        #self.id2label = CONFIG_COCO_ID2LABEL
+        self.mask_branch_model = self.sam.create_predictor(output_mode = 'coco_rle')
+        self.id2label = CONFIG_COCO_ID2LABEL
         
     def oneformer_coco_segmentation(self, image, oneformer_coco_processor, oneformer_coco_model, rank=0):
         inputs = oneformer_coco_processor(images=image, task_inputs=["semantic"], return_tensors="pt").to(rank)
