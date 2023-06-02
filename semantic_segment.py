@@ -1,13 +1,13 @@
 import os
-import numpy as np
-from PIL import Image
-import torch
-import torch.distributed as dist
-import pycocotools.mask as maskUtils
-import torch.nn.functional as F
-from transformers import OneFormerProcessor, OneFormerForUniversalSegmentation
+# import numpy as np
+# from PIL import Image
+# import torch
+# import torch.distributed as dist
+# import pycocotools.mask as maskUtils
+# import torch.nn.functional as F
+# from transformers import OneFormerProcessor, OneFormerForUniversalSegmentation
 from sam import SegmentAnything
-from coco_id2label import CONFIG as CONFIG_COCO_ID2LABEL
+# from coco_id2label import CONFIG as CONFIG_COCO_ID2LABEL
 
 
 class SemanticSegmenter:
