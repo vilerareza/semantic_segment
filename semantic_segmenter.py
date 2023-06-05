@@ -55,12 +55,15 @@ class SemanticSegmenter:
         semantic_class_in_img = torch.unique(semantic_mask)
 
         # semantic prediction
-        semantic_masks = {}
+        output = {}
         for i in range(len(semantic_class_in_img)):
             class_id = semantic_class_in_img[i].item()
             class_name = self.id2label['refined_id2label'][str(semantic_class_in_img[i].item())]
             class_mask = (semantic_mask == semantic_class_in_img[i])
             class_mask = class_mask.cpu().numpy().astype(np.uint8)
-            semantic_masks[class_id] = {'class_name':class_name, 'class_mask':class_mask} 
+            class_n_pixel = sum(sum(class_mask[class_mask!=0]))
+            class_total_pixel = class_mask.shape[0] * class_mask.shape[0]
+            class_area = class_n_pixel / class_total_pixel
+            output[class_id] = {'class_name':class_name, 'class_area': class_area, 'class_mask':class_mask} 
 
-        return semantic_masks
+        return output
