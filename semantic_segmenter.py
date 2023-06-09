@@ -62,7 +62,7 @@ class SemanticSegmenter:
             class_mask = (semantic_mask == semantic_class_in_img[i])
             class_mask = class_mask.cpu().numpy().astype(np.uint8)
             class_n_pixel = sum(sum(class_mask!=0))
-            class_total_pixel = class_mask.shape[0] * class_mask.shape[0]
+            class_total_pixel = class_mask.shape[0] * class_mask.shape[1]
             class_area = class_n_pixel / class_total_pixel
             output[class_id] = {'class_name':class_name, 'class_area': class_area, 'class_mask':class_mask} 
 
